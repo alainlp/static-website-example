@@ -41,7 +41,7 @@ pipeline {
            steps {
                script{
                    sh '''
-                       curl http://localhost | grep -iq "Alain"
+                       curl http://localhost:5000 | grep -iq "Alain"
                    '''
                }
            }
