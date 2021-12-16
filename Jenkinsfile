@@ -2,11 +2,11 @@ pipeline {
 
     environment {
         IMAGE_NAME = "static-website-example"
-        IMAGE_TAG = BUILD_TAG
+        IMAGE_TAG = "V1.0"
         USERNAME = "alainmariathas95"
         CONTAINER_NAME = "static-website-example"
         EC2_PRODUCTION_HOST = "54.90.74.29"
-		    EC2_STAGING_HOST = "18.206.249.250"
+	EC2_STAGING_HOST = "18.206.249.250"
     }
 
     agent none
