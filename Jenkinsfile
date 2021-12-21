@@ -5,8 +5,7 @@ pipeline {
         IMAGE_TAG = "V1.0"
         USERNAME = "alainmariathas95"
         CONTAINER_NAME = "static-website-example"
-        EC2_PRODUCTION_HOST = "54.90.74.29"
-	EC2_STAGING_HOST = "18.206.249.250"
+        EC2_PRODUCTION_HOST = "54.208.22.42"
     }
 
     agent none
@@ -64,27 +63,6 @@ pipeline {
                }
            }
        }
-
-        stage('Deploy app on EC2-cloud Staging') {
-        agent any
-        when{
-            expression{ GIT_BRANCH == 'origin/master'}
-        }
-        steps{
-            withCredentials([sshUserPrivateKey(credentialsId: "ec2_prod_private_key", keyFileVariable: 'keyfile', usernameVariable: 'NUSER')]) {
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    script{ 
-                            sh'''
-			    	ssh -o StrictHostKeyChecking=no -i ${keyfile} ${NUSER}@${EC2_STAGING_HOST} docker stop $CONTAINER_NAME || true
-                                ssh -o StrictHostKeyChecking=no -i ${keyfile} ${NUSER}@${EC2_STAGING_HOST} docker rm $CONTAINER_NAME || true
-                                ssh -o StrictHostKeyChecking=no -i ${keyfile} ${NUSER}@${EC2_STAGING_HOST} docker run --name $CONTAINER_NAME -d -e PORT=5000 -p 5000:80 $USERNAME/$IMAGE_NAME:$IMAGE_TAG
-                            '''
-                        }
-                    }
-                }
-            }
-        }
-
 
         stage('Deploy app on EC2-cloud Production') {
         agent any
