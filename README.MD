@@ -21,4 +21,4 @@ All of the site templates I create for [HTML5 UP](https://html5up.net/) are lice
 More info [here](https://html5up.net/license).
 
 
-test jenkins
+[![Build Status](http://18.206.235.247:8080/buildStatus/icon?job=deploy_prod)](http://18.206.235.247:8080/job/deploy_prod/)
